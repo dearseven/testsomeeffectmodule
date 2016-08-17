@@ -88,10 +88,13 @@ public class GraduallyFillImageView extends ImageView {
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             totalHeight = bitmap.getHeight();
 
-            Bitmap bitmap1 = bitmap.extractAlpha();
-            canvas.drawBitmap(bitmap, 0, 0, null);
+            Bitmap bitmap1 = bitmap.extractAlpha();//抽取一个透明图片层，用来做填充
+            canvas.drawBitmap(bitmap, 0, 0, null);//画出"原"图
+
+            //截取原图一部分的大小，这一部分将会被填充bitmap1
             canvas.clipRect(0, bitmap.getHeight() - percentHeight, bitmap.getWidth(),
                     bitmap.getHeight());
+            //画bitmap1
             canvas.drawBitmap(bitmap1, 0, 0, paint1);
         } catch (Exception e) {
             e.printStackTrace();
