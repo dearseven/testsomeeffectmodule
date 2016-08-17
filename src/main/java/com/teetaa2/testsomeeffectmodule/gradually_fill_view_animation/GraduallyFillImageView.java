@@ -61,31 +61,32 @@ public class GraduallyFillImageView extends ImageView {
         //super.onDraw(canvas);
         Drawable drawable = getDrawable();
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        totalHeight = bitmap.getHeight();
+
         try {
             //裁剪
             //当bitmap.getHeight()==percentHeight的时候，则是全部绘制
             //Log.i("percentHeight2", "percentHeight:" + percentHeight);
 
-            Log.i("m1",getWidth()+" "+getHeight());
-            Log.i("m2",bitmap.getWidth()+" "+bitmap.getHeight());
+            //Log.i("m1",getWidth()+" "+getHeight());
+            // Log.i("m2",bitmap.getWidth()+" "+bitmap.getHeight());
 
             Matrix matrix = new Matrix();
-            float dx=1f,dy=1f;
+            float dx = 1f, dy = 1f;
 //            if(getWidth()>bitmap1.getWidth()&&getHeight()>bitmap1.getHeight()){
 //
 //            }else{
 //
 //            }
-            dx=(getWidth()*1.0f)/(bitmap.getWidth()*1.0f);
-            dy=(getWidth()*1.0f)/(bitmap.getWidth()*1.0f);
-            if(dx<dy){
-                dx=dy;
-            }else{
-                dy=dx;
+            dx = (getWidth() * 1.0f) / (bitmap.getWidth() * 1.0f);
+            dy = (getWidth() * 1.0f) / (bitmap.getWidth() * 1.0f);
+            if (dx < dy) {
+                dx = dy;
+            } else {
+                dy = dx;
             }
-            matrix.postScale(dx,dy); //长和宽放大缩小的比例
-            bitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+            matrix.postScale(dx, dy); //长和宽放大缩小的比例
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            totalHeight = bitmap.getHeight();
 
             Bitmap bitmap1 = bitmap.extractAlpha();
             canvas.drawBitmap(bitmap, 0, 0, null);
